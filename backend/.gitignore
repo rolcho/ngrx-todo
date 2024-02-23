@@ -1,0 +1,24 @@
+# Dependency directories
+/node_modules
+
+# Build output
+/dist
+
+# Environment variables
+.env
+
+# IDE files
+.idea
+.vscode
+
+# Logs
+/logs
+
+# Cache
+/.cache
+
+# Compiled output
+/out
+
+# Miscellaneous
+.DS_Store
