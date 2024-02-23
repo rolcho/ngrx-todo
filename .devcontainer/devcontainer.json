@@ -6,8 +6,8 @@
 	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bullseye",
 	"features": {
 		"ghcr.io/devcontainers-contrib/features/angular-cli:2": {},
-		"ghcr.io/lumenpink/devcontainer-features/bun:0": {},
-		"ghcr.io/devcontainers/features/github-cli:1": {}
+		"ghcr.io/devcontainers/features/github-cli:1": {},
+		"ghcr.io/devcontainers-contrib/features/tsx:1": {}
 	},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
