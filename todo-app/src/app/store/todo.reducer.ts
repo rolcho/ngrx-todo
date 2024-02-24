@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { Todo } from '../todo/todo.component';
-import { addTodo, removeTodo } from './todo.actions';
+import { addTodo, removeTodo, toggleTodo } from './todo.actions';
 
 export interface TodoState {
   todos: Todo[];
@@ -17,5 +17,13 @@ export const todoStore = createReducer(
   }),
   on(removeTodo, (state: TodoState, { id }) => {
     return { ...state, todos: state.todos.filter((t) => t.id !== id) };
+  }),
+  on(toggleTodo, (state: TodoState, { id }) => {
+    return {
+      ...state,
+      todos: state.todos.map((t) =>
+        t.id === id ? { ...t, done: !t.done } : t
+      ),
+    };
   })
 );

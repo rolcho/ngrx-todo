@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { AppState } from '../app.state';
 import { Store } from '@ngrx/store';
-import { getTodoCount } from '../store/todo.selector';
+import { getDoneCount, getTodoCount } from '../store/todo.selector';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -14,4 +14,5 @@ import { CommonModule } from '@angular/common';
 export class TodoCountComponent {
   private readonly store = inject(Store<AppState>);
   todoCount$ = this.store.select(getTodoCount);
+  doneCount$ = this.store.select(getDoneCount);
 }
