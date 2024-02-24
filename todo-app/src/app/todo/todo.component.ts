@@ -1,4 +1,4 @@
-import { Component, OnChanges, SimpleChanges, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -27,16 +27,13 @@ export interface Todo {
   templateUrl: './todo.component.html',
   styleUrl: './todo.component.css',
 })
-export class TodoComponent implements OnChanges {
+export class TodoComponent {
   private readonly store = inject(Store<AppState>);
 
   newTodo: Todo = { id: 0, name: '', done: false };
   todo$ = this.store.select(getTodos);
 
   constructor() {}
-  ngOnChanges(): void {
-    this.todo$ = this.store.select(getTodos);
-  }
 
   onAddTodo() {
     this.newTodo.id = Math.floor(Math.random() * 10000);
