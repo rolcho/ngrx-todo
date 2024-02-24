@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { Store } from "@ngrx/store";
 
 import { AppStore } from "../app.state";
-import { removeTodo, toggleTodo } from "../store/todo.actions";
+import { removeTodo, toggleTodo } from "../todo/store/todo.actions";
 import { Todo } from "./todo.component";
 
 @Component({

@@ -4,7 +4,7 @@ import { provideRouter } from "@angular/router";
 import { routes } from "./app.routes";
 import { provideStore } from "@ngrx/store";
 import { provideStoreDevtools } from "@ngrx/store-devtools";
-import { todoStore } from "./store/todo.reducer";
+import { todoStore } from "./todo/store/todo.reducer";
 
 export const appConfig: ApplicationConfig = {
   providers: [

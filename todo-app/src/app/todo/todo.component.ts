@@ -3,7 +3,7 @@ import { Store } from "@ngrx/store";
 import { CommonModule } from "@angular/common";
 
 import { AppStore } from "../app.state";
-import { getTodos } from "../store/todo.selector";
+import { getTodos } from "../todo/store/todo.selector";
 import { TodoListItemComponent } from "./todo-list-item.component";
 import { TodoCountComponent } from "./todo-count.component";
 import { TodoInputComponent } from "./todo-input.component";

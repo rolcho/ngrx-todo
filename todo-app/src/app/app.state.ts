@@ -1,4 +1,4 @@
-import { TodoState } from "./store/todo.reducer";
+import { TodoState } from "./todo/store/todo.reducer";
 
 export interface AppStore {
   todo?: TodoState;

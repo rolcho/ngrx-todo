@@ -2,7 +2,7 @@ import { Component, inject } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { FormsModule } from "@angular/forms";
 
-import { addTodo } from "../store/todo.actions";
+import { addTodo } from "../todo/store/todo.actions";
 import { AppStore } from "../app.state";
 import { Todo } from "./todo.component";
 

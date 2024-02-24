@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { Store } from "@ngrx/store";
 
 import { AppStore } from "../app.state";
-import { getDoneCount, getTodoCount } from "../store/todo.selector";
+import { getDoneCount, getTodoCount } from "../todo/store/todo.selector";
 
 @Component({
   selector: "app-todo-count",
