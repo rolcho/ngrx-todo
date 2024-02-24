@@ -1,0 +1,9 @@
+<input type="text" [(ngModel)]="newTodo.name" />
+<button (click)="onAddTodo()">Add</button>
+<ng-container *ngIf="todo$ | async as todos">
+  <ul style="list-style-type: none; padding: 0">
+    <li style="margin-bottom: 1rem" *ngFor="let todo of todos">
+      <app-todo-list-item [todo]="todo"></app-todo-list-item>
+    </li>
+  </ul>
+</ng-container>

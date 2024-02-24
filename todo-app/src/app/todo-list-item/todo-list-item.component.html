@@ -1,0 +1,4 @@
+<ng-container *ngIf="todo">
+  <button (click)="onDeleteTodo(todo.id)">Delete</button>
+  {{ todo.name }}
+</ng-container>
