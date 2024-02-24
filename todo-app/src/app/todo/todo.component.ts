@@ -7,7 +7,6 @@ import { getTodos } from "../todo/store/todo.selector";
 import { TodoListItemComponent } from "./todo-list-item.component";
 import { TodoCountComponent } from "./todo-count.component";
 import { TodoInputComponent } from "./todo-input.component";
-import { loadTodosStarted } from "./store/todo.actions";
 
 export interface Todo {
   id: number;
@@ -27,10 +26,5 @@ export interface Todo {
 })
 export class TodoComponent {
   private store = inject(Store<AppStore>);
-
-  constructor() {
-    this.store.dispatch(loadTodosStarted());
-  }
-
   todos$ = this.store.select(getTodos);
 }

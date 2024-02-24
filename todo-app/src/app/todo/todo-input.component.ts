@@ -17,6 +17,9 @@ export class TodoInputComponent {
   todoName = "";
 
   onAddTodo() {
+    if (!this.todoName.trim()) {
+      return;
+    }
     this.store.dispatch(addTodoStarted({ name: this.todoName.trim(), done: false }));
     this.todoName = "";
   }
