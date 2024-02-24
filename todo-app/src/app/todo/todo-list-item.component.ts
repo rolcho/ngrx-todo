@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { Store } from "@ngrx/store";
 
 import { AppStore } from "../app.state";
-import { removeTodo, toggleTodo } from "../todo/store/todo.actions";
+import { removeTodoStarted, toggleTodoStarted } from "../todo/store/todo.actions";
 import { Todo } from "./todo.component";
 
 @Component({
@@ -13,7 +13,7 @@ import { Todo } from "./todo.component";
   template: ` @if (todo) {
     <div style="margin: 10px 0;">
       <button (click)="onDeleteTodo(todo.id)">Delete</button>
-      <input type="checkbox" [checked]="todo.done" (change)="onToggleTodo(todo.id)" />
+      <input type="checkbox" [checked]="todo.done" (change)="onToggleTodo(todo)" />
       {{ todo.name }}
     </div>
   }`
@@ -22,10 +22,10 @@ export class TodoListItemComponent {
   private store = inject(Store<AppStore>);
   @Input() todo?: Todo;
   onDeleteTodo(id: number) {
-    this.store.dispatch(removeTodo({ id }));
+    this.store.dispatch(removeTodoStarted({ id }));
   }
 
-  onToggleTodo(id: number) {
-    this.store.dispatch(toggleTodo({ id }));
+  onToggleTodo(todo: Todo) {
+    this.store.dispatch(toggleTodoStarted({ ...todo, done: !todo.done }));
   }
 }

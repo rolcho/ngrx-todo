@@ -5,11 +5,26 @@ import { routes } from "./app.routes";
 import { provideStore } from "@ngrx/store";
 import { provideStoreDevtools } from "@ngrx/store-devtools";
 import { todoStore } from "./todo/store/todo.reducer";
+import { provideEffects } from "@ngrx/effects";
+import {
+  handleAddTodoSideEffects$,
+  handleDeleteTodoSideEffects$,
+  handleGetTodosSideEffects$,
+  handleToggleTodoSideEffects$
+} from "./todo/store/todo.effects";
+import { provideHttpClient } from "@angular/common/http";
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideStore({ todo: todoStore }),
-    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
+    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
+    provideEffects({
+      handleAddTodoSideEffects$,
+      handleGetTodosSideEffects$,
+      handleDeleteTodoSideEffects$,
+      handleToggleTodoSideEffects$
+    }),
+    provideHttpClient()
   ]
 };

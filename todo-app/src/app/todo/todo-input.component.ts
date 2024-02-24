@@ -2,9 +2,8 @@ import { Component, inject } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { FormsModule } from "@angular/forms";
 
-import { addTodo } from "../todo/store/todo.actions";
+import { addTodoStarted } from "../todo/store/todo.actions";
 import { AppStore } from "../app.state";
-import { Todo } from "./todo.component";
 
 @Component({
   selector: "app-todo-input",
@@ -18,9 +17,7 @@ export class TodoInputComponent {
   todoName = "";
 
   onAddTodo() {
-    const id = Math.floor(Math.random() * 1000);
-    const todo: Todo = { id, name: this.todoName.trim(), done: false };
-    this.store.dispatch(addTodo({ todo }));
+    this.store.dispatch(addTodoStarted({ name: this.todoName.trim(), done: false }));
     this.todoName = "";
   }
 }
