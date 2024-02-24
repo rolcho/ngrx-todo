@@ -5,7 +5,6 @@ You can can clone it into a VS Code dev container to install all dependencies an
 
 ## Starting up the backend server
 
-The container installs the necessary dependencies.
 You can start the server with `tsx server` in the `backend` folder. It will be running on `http://localhost:3000/`.
 
 ## Starting up the frontend server
