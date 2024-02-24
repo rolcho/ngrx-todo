@@ -1,13 +1,17 @@
-import { createReducer, on } from '@ngrx/store';
-import { Todo } from '../todo/todo.component';
-import { addTodo, removeTodo, toggleTodo } from './todo.actions';
+import { createReducer, on } from "@ngrx/store";
+import { Todo } from "../todo/todo.component";
+import { addTodo, removeTodo, toggleTodo } from "./todo.actions";
 
 export interface TodoState {
   todos: Todo[];
+  error: string;
+  success: boolean;
 }
 
 export const initialState: TodoState = {
   todos: [],
+  error: "",
+  success: false
 };
 
 export const todoStore = createReducer(
@@ -21,9 +25,7 @@ export const todoStore = createReducer(
   on(toggleTodo, (state: TodoState, { id }) => {
     return {
       ...state,
-      todos: state.todos.map((t) =>
-        t.id === id ? { ...t, done: !t.done } : t
-      ),
+      todos: state.todos.map((t) => (t.id === id ? { ...t, done: !t.done } : t))
     };
   })
 );

@@ -1,12 +1,9 @@
-import { createAction, props } from '@ngrx/store';
-import { Todo } from '../todo/todo.component';
+import { createAction, props } from "@ngrx/store";
 
-export const addTodo = createAction('[Todo] Add Todo', props<{ todo: Todo }>());
-export const removeTodo = createAction(
-  '[Todo] Remove Todo',
-  props<{ id: number }>()
-);
-export const toggleTodo = createAction(
-  '[Todo] Toggle Todo',
-  props<{ id: number }>()
-);
+import { Todo } from "../todo/todo.component";
+
+const addTodo = createAction("[Todo] Add", props<{ todo: Todo }>());
+const removeTodo = createAction("[Todo] Remove", props<{ id: number }>());
+const toggleTodo = createAction("[Todo] Toggle", props<{ id: number }>());
+
+export { addTodo, removeTodo, toggleTodo };

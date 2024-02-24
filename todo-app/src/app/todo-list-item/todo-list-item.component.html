@@ -1,9 +1,0 @@
-<ng-container *ngIf="todo">
-  <button (click)="onDeleteTodo(todo.id)">Delete</button>
-  <input
-    type="checkbox"
-    [checked]="todo.done"
-    (change)="onToggleTodo(todo.id)"
-  />
-  {{ todo.name }}
-</ng-container>
