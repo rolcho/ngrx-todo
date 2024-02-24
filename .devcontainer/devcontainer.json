@@ -17,7 +17,7 @@
   // "forwardPorts": [],
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "cd backend && npm install",
+  "postCreateCommand": "cd backend && npm install & cd ../todo-app && npm install",
 
   // Configure tool-specific properties.
   "customizations": {
