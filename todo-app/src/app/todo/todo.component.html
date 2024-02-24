@@ -1,3 +1,4 @@
+<app-todo-count></app-todo-count>
 <input type="text" [(ngModel)]="newTodo.name" />
 <button (click)="onAddTodo()">Add</button>
 <ng-container *ngIf="todo$ | async as todos">

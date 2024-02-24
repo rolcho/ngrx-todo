@@ -7,6 +7,7 @@ import { addTodo } from '../store/todo.actions';
 import { AppState } from '../app.state';
 import { getTodos } from '../store/todo.selector';
 import { TodoListItemComponent } from '../todo-list-item/todo-list-item.component';
+import { TodoCountComponent } from '../todo-count/todo-count.component';
 
 export interface Todo {
   id: number;
@@ -17,7 +18,12 @@ export interface Todo {
 @Component({
   selector: 'app-todo',
   standalone: true,
-  imports: [CommonModule, FormsModule, TodoListItemComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    TodoListItemComponent,
+    TodoCountComponent,
+  ],
   templateUrl: './todo.component.html',
   styleUrl: './todo.component.css',
 })
