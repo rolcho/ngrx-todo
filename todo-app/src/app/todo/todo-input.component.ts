@@ -1,6 +1,10 @@
 import { Component, inject } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { FormsModule } from "@angular/forms";
+import { MatIconModule } from "@angular/material/icon";
+import { MatButtonModule } from "@angular/material/button";
+import { MatInputModule } from "@angular/material/input";
+import { MatFormFieldModule } from "@angular/material/form-field";
 
 import { addTodoStarted } from "../todo/store/todo.actions";
 import { AppStore } from "../app.state";
@@ -8,9 +12,16 @@ import { AppStore } from "../app.state";
 @Component({
   selector: "app-todo-input",
   standalone: true,
-  imports: [FormsModule],
-  template: ` <input type="text" [(ngModel)]="todoName" />
-    <button (click)="onAddTodo()">Add</button>`
+  imports: [FormsModule, MatInputModule, MatIconModule, MatButtonModule, MatFormFieldModule],
+  template: ` <div style="display: flex; width: 100%">
+    <mat-form-field style="flex: 1">
+      <mat-label>Add new todo</mat-label>
+      <input matInput type="text" [(ngModel)]="todoName" />
+    </mat-form-field>
+    <button mat-icon-button [disabled]="!todoName.trim().length" (click)="onAddTodo()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>`
 })
 export class TodoInputComponent {
   private store = inject(Store<AppStore>);
