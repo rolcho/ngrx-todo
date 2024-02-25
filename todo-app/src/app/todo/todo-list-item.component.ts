@@ -15,7 +15,7 @@ import { Todo } from "./todo.component";
   imports: [CommonModule, MatCheckboxModule, MatButtonModule, MatIconModule],
   template: ` @if (todo) {
     <div style="margin: 10px 0; display: flex; align-items: center; justify-content: space-between">
-      <mat-checkbox class="large-text" [checked]="todo.done" (change)="onToggleTodo(todo)">
+      <mat-checkbox [checked]="todo.done" (change)="onToggleTodo(todo)">
         {{ todo.name }}
       </mat-checkbox>
       <button mat-icon-button color="warn" aria-label="trash can icon" (click)="onDeleteTodo(todo.id)">
