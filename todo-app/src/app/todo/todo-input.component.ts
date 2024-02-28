@@ -16,9 +16,9 @@ import { AppStore } from "../app.state";
   template: ` <div style="display: flex; width: 100%">
     <mat-form-field style="flex: 1">
       <mat-label>Add new todo</mat-label>
-      <input matInput type="text" [(ngModel)]="todoName" />
+      <input data-testid="todo-input" matInput type="text" [(ngModel)]="todoName" />
     </mat-form-field>
-    <button mat-icon-button [disabled]="!todoName.trim().length" (click)="onAddTodo()">
+    <button data-testid="todo-add-button" mat-icon-button [disabled]="!todoName.trim().length" (click)="onAddTodo()">
       <mat-icon>add</mat-icon>
     </button>
   </div>`
