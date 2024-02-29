@@ -8,9 +8,11 @@ import {
   AfterAll,
 } from "@cucumber/cucumber";
 import { Browser, chromium, expect, type Page } from "@playwright/test";
+import exp from "constants";
 
 let page: Page;
 let browser: Browser;
+
 BeforeAll(async () => {
   browser = await chromium.launch();
   page = await browser.newPage();
@@ -39,4 +41,10 @@ Then("I should see a todo with the {string} label", async (todoLabel) => {
   const checkbox = page.getByTestId("todo-checkbox");
   await expect(checkbox).toBeVisible();
   await expect(checkbox).toHaveText(todoLabel);
+});
+
+Then("I should see a disabled add button", async function () {
+  // Write code here that turns the phrase above into concrete actions
+  const button = page.getByTestId("todo-add-button");
+  await expect(button).toBeDisabled();
 });
