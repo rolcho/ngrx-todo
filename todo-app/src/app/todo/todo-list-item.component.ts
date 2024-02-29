@@ -14,7 +14,10 @@ import { Todo } from "./todo.component";
   standalone: true,
   imports: [CommonModule, MatCheckboxModule, MatButtonModule, MatIconModule],
   template: ` @if (todo) {
-    <div style="margin: 10px 0; display: flex; align-items: center; justify-content: space-between">
+    <div
+      data-testid="todo-item"
+      style="margin: 10px 0; display: flex; align-items: center; justify-content: space-between"
+    >
       <mat-checkbox data-testid="todo-checkbox" [checked]="todo.done" (change)="onToggleTodo(todo)">
         {{ todo.name }}
       </mat-checkbox>

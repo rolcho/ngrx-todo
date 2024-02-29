@@ -1,14 +1,5 @@
-import {
-  Given,
-  Then,
-  When,
-  BeforeAll,
-  Before,
-  After,
-  AfterAll,
-} from "@cucumber/cucumber";
-import { Browser, chromium, expect, type Page } from "@playwright/test";
-import exp from "constants";
+import { Given, Then, When, BeforeAll, AfterAll } from "@cucumber/cucumber";
+import { expect, type Page, chromium, Browser } from "@playwright/test";
 
 let page: Page;
 let browser: Browser;
@@ -24,27 +15,41 @@ AfterAll(async () => {
   await browser.close();
 });
 
-Given("{string} that I insert into the text field", async (todoInput) => {
-  // Write code here that turns the phrase above into concrete actions
+//Scenario: Adding a todo
+Given("I should see a disabled add button", async function () {
+  const button = page.getByTestId("todo-add-button");
+  await expect(button).toBeDisabled();
+});
+
+Then("{string} that I insert into the text field", async (todoInput) => {
   const input = page.getByTestId("todo-input");
   await input.fill(todoInput);
 });
 
 When("I click on the add button", async () => {
-  // Write code here that turns the phrase above into concrete actions
   const button = page.getByTestId("todo-add-button");
   await button.click();
 });
 
 Then("I should see a todo with the {string} label", async (todoLabel) => {
-  // Write code here that turns the phrase above into concrete actions
   const checkbox = page.getByTestId("todo-checkbox");
   await expect(checkbox).toBeVisible();
   await expect(checkbox).toHaveText(todoLabel);
 });
 
-Then("I should see a disabled add button", async function () {
-  // Write code here that turns the phrase above into concrete actions
-  const button = page.getByTestId("todo-add-button");
-  await expect(button).toBeDisabled();
+// Scenario: Deleting a todo
+Given("{string} is in the todo list", async (todoLabel) => {
+  const checkbox = page.getByTestId("todo-checkbox");
+  await expect(checkbox).toHaveText(todoLabel);
+});
+
+When("I click on the delete button next to {string}", async (todoLabel) => {
+  const todoItem = page.getByTestId("todo-item");
+  const todoDeleteButton = todoItem.locator("button");
+  await todoDeleteButton.click();
+});
+
+Then("I should not see a todo with the {string} label", async (todoLabel) => {
+  const todoItem = page.getByTestId("todo-item");
+  await expect(todoItem).toHaveCount(0);
 });
