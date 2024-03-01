@@ -14,7 +14,7 @@ async function startDocker() {
   startedDocker = await docker.up();
   console.log("Timer started");
 
-  await new Promise((resolve) => setTimeout(resolve, 2 * 60 * 1000));
+  await new Promise((resolve) => setTimeout(resolve, 100000));
   downedDocker = await startedDocker.down();
   console.log("Docker downed");
 }

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cucumber-js test"
+    "test": "cucumber-js test -f @cucumber/pretty-formatter"
   },
   "keywords": [],
   "author": "",
@@ -15,5 +15,8 @@
     "@types/node": "^20.11.24",
     "testcontainers": "^10.7.2",
     "ts-node": "^10.9.2"
+  },
+  "dependencies": {
+    "@cucumber/pretty-formatter": "^1.0.0"
   }
 }
