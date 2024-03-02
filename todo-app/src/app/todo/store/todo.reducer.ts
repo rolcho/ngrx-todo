@@ -71,13 +71,16 @@ const todoStore = createReducer(
 
   // toggleTodo
   on(toggleTodoStarted, (state) => ({ ...state, isLoading: true })),
-  on(toggleTodoSuccess, (state, { id }) => ({
-    ...state,
-    isLoading: false,
-    todos: { ...state.todos, [id]: { ...state.todos[id], done: !state.todos[id].done } },
-    todoCounterDone: state.todos[id].done ? state.todoCounterDone - 1 : state.todoCounterDone + 1,
-    todoCounterNotDone: state.todos[id].done ? state.todoCounterNotDone + 1 : state.todoCounterNotDone - 1
-  })),
+  on(toggleTodoSuccess, (state, { id }) => {
+    const { [id]: toggledTodo } = state.todos;
+    return {
+      ...state,
+      isLoading: false,
+      todos: { ...state.todos, [id]: { ...state.todos[id], done: !toggledTodo.done } },
+      todoCounterDone: toggledTodo.done ? state.todoCounterDone - 1 : state.todoCounterDone + 1,
+      todoCounterNotDone: toggledTodo.done ? state.todoCounterNotDone + 1 : state.todoCounterNotDone - 1
+    };
+  }),
   on(toggleTodoError, (state, { message }) => ({ ...state, isLoading: false, error: message }))
 );
 

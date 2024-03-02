@@ -13,12 +13,22 @@ import {
   handleToggleTodoSideEffects$
 } from "./todo/store/todo.effects";
 import { provideHttpClient } from "@angular/common/http";
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideAnimationsAsync } from "@angular/platform-browser/animations/async";
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    provideStore({ todo: todoStore }),
+    provideStore(
+      { todo: todoStore },
+      {
+        runtimeChecks: {
+          strictStateImmutability: true,
+          strictActionImmutability: true,
+          strictStateSerializability: true,
+          strictActionSerializability: true
+        }
+      }
+    ),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     provideEffects({
       handleAddTodoSideEffects$,
@@ -26,6 +36,7 @@ export const appConfig: ApplicationConfig = {
       handleDeleteTodoSideEffects$,
       handleToggleTodoSideEffects$
     }),
-    provideHttpClient(), provideAnimationsAsync()
+    provideHttpClient(),
+    provideAnimationsAsync()
   ]
 };
