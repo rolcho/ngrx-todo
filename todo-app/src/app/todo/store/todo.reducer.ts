@@ -19,16 +19,12 @@ export type TodoState = {
   todos: Todos;
   isLoading: boolean;
   error: string;
-  todoCounterDone: number;
-  todoCounterNotDone: number;
 };
 
 const initialState: TodoState = {
   todos: {},
   error: "",
-  isLoading: false,
-  todoCounterDone: 0,
-  todoCounterNotDone: 0
+  isLoading: false
 };
 
 const todoStore = createReducer(
@@ -39,9 +35,7 @@ const todoStore = createReducer(
   on(loadTodosSuccess, (state, { todos }) => ({
     ...state,
     isLoading: false,
-    todos,
-    todoCounterDone: Object.values(todos).filter((todo) => todo.done).length,
-    todoCounterNotDone: Object.values(todos).filter((todo) => !todo.done).length
+    todos
   })),
   on(loadTodosError, (state, { message }) => ({ ...state, isLoading: false, error: message })),
 
@@ -50,8 +44,7 @@ const todoStore = createReducer(
   on(addTodoSuccess, (state, { id, name, done }) => ({
     ...state,
     isLoading: false,
-    todos: { ...state.todos, [id]: { id, name, done } },
-    todoCounterNotDone: state.todoCounterNotDone + 1
+    todos: { ...state.todos, [id]: { id, name, done } }
   })),
   on(addTodoError, (state, { message }) => ({ ...state, isLoading: false, error: message })),
 
@@ -62,9 +55,7 @@ const todoStore = createReducer(
     return {
       ...state,
       isLoading: false,
-      todos: updatedTodos,
-      todoCounterDone: deletedTodo.done ? state.todoCounterDone - 1 : state.todoCounterDone,
-      todoCounterNotDone: deletedTodo.done ? state.todoCounterNotDone : state.todoCounterNotDone - 1
+      todos: updatedTodos
     };
   }),
   on(removeTodoError, (state, { message }) => ({ ...state, isLoading: false, error: message })),
@@ -76,9 +67,7 @@ const todoStore = createReducer(
     return {
       ...state,
       isLoading: false,
-      todos: { ...state.todos, [id]: { ...state.todos[id], done: !toggledTodo.done } },
-      todoCounterDone: toggledTodo.done ? state.todoCounterDone - 1 : state.todoCounterDone + 1,
-      todoCounterNotDone: toggledTodo.done ? state.todoCounterNotDone + 1 : state.todoCounterNotDone - 1
+      todos: { ...state.todos, [id]: { ...state.todos[id], done: !toggledTodo.done } }
     };
   }),
   on(toggleTodoError, (state, { message }) => ({ ...state, isLoading: false, error: message }))
