@@ -1,7 +1,7 @@
 import { createAction, props } from "@ngrx/store";
-import { Todo } from "../todo.component";
+import { Todos } from "./todo.reducer";
 
-export type LoadTodosResponse = { todos: Todo[] };
+export type LoadTodosResponse = { todos: Todos };
 export type LoadTodosError = { message: string };
 
 const loadTodosStarted = createAction("[Todo Load] Started");
@@ -24,8 +24,8 @@ const removeTodoStarted = createAction("[Todo Remove] Started", props<RemoveTodo
 const removeTodoSuccess = createAction("[Todo Remove] Success", props<RemoveTodoResponse>());
 const removeTodoError = createAction("[Todo Remove] Error", props<RemoveTodoError>());
 
-export type ToggleTodoRequest = { id: number; name: string; done: boolean };
-export type ToggleTodoResponse = { id: number; name: string; done: boolean };
+export type ToggleTodoRequest = { id: number };
+export type ToggleTodoResponse = { id: number };
 export type ToggleTodoError = { message: string };
 
 const toggleTodoStarted = createAction("[Todo Toggle] Started", props<ToggleTodoRequest>());

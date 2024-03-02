@@ -29,7 +29,7 @@ app.get("/todos/:id", function (req, res) {
         res.send(todo);
     }
     else {
-        res.status(404).send({ message: "Todo not found" });
+        res.sendStatus(404).send({ message: "Todo not found" });
     }
 });
 app.post("/todos", function (req, res) {
@@ -38,15 +38,15 @@ app.post("/todos", function (req, res) {
     todos.push(todo);
     res.send(todo);
 });
-app.put("/todos/:id", function (req, res) {
+app.patch("/todos/:id/toggle", function (req, res) {
     var id = parseInt(req.params.id);
     var todo = todos.find(function (todo) { return todo.id === id; });
     if (todo) {
-        todo = Object.assign(todo, req.body);
-        res.send(todo);
+        todo.done = !todo.done;
+        res.send({ id: todo.id });
     }
     else {
-        res.status(404).send({ message: "Todo not found" });
+        res.sendStatus(404).send({ message: "Todo not found" });
     }
 });
 app.delete("/todos/:id", function (req, res) {
@@ -57,7 +57,7 @@ app.delete("/todos/:id", function (req, res) {
         res.send({ message: "Todo deleted" });
     }
     else {
-        res.status(404).send({ message: "Todo not found" });
+        res.sendStatus(404).send({ message: "Todo not found" });
     }
 });
 app.listen(port, function () {

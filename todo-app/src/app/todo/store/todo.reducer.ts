@@ -14,17 +14,21 @@ import {
   toggleTodoStarted,
   toggleTodoSuccess
 } from "./todo.actions";
-
+export type Todos = { [id: number]: Todo };
 export type TodoState = {
-  todos: Todo[];
+  todos: Todos;
   isLoading: boolean;
   error: string;
+  todoCounterDone: number;
+  todoCounterNotDone: number;
 };
 
 const initialState: TodoState = {
-  todos: [],
+  todos: {},
   error: "",
-  isLoading: false
+  isLoading: false,
+  todoCounterDone: 0,
+  todoCounterNotDone: 0
 };
 
 const todoStore = createReducer(
@@ -35,7 +39,9 @@ const todoStore = createReducer(
   on(loadTodosSuccess, (state, { todos }) => ({
     ...state,
     isLoading: false,
-    todos
+    todos,
+    todoCounterDone: Object.values(todos).filter((todo) => todo.done).length,
+    todoCounterNotDone: Object.values(todos).filter((todo) => !todo.done).length
   })),
   on(loadTodosError, (state, { message }) => ({ ...state, isLoading: false, error: message })),
 
@@ -44,25 +50,33 @@ const todoStore = createReducer(
   on(addTodoSuccess, (state, { id, name, done }) => ({
     ...state,
     isLoading: false,
-    todos: [...state.todos, { id, name, done }]
+    todos: { ...state.todos, [id]: { id, name, done } },
+    todoCounterNotDone: state.todoCounterNotDone + 1
   })),
   on(addTodoError, (state, { message }) => ({ ...state, isLoading: false, error: message })),
 
   // removeTodo
   on(removeTodoStarted, (state) => ({ ...state, isLoading: true })),
-  on(removeTodoSuccess, (state, { id }) => ({
-    ...state,
-    isLoading: false,
-    todos: state.todos.filter((todo) => todo.id !== id)
-  })),
+  on(removeTodoSuccess, (state, { id }) => {
+    const { [id]: deletedTodo, ...updatedTodos } = state.todos;
+    return {
+      ...state,
+      isLoading: false,
+      todos: updatedTodos,
+      todoCounterDone: deletedTodo.done ? state.todoCounterDone - 1 : state.todoCounterDone,
+      todoCounterNotDone: deletedTodo.done ? state.todoCounterNotDone : state.todoCounterNotDone - 1
+    };
+  }),
   on(removeTodoError, (state, { message }) => ({ ...state, isLoading: false, error: message })),
 
   // toggleTodo
   on(toggleTodoStarted, (state) => ({ ...state, isLoading: true })),
-  on(toggleTodoSuccess, (state, { id, name, done }) => ({
+  on(toggleTodoSuccess, (state, { id }) => ({
     ...state,
     isLoading: false,
-    todos: state.todos.map((todo) => (todo.id === id ? { id, name, done } : todo))
+    todos: { ...state.todos, [id]: { ...state.todos[id], done: !state.todos[id].done } },
+    todoCounterDone: state.todos[id].done ? state.todoCounterDone - 1 : state.todoCounterDone + 1,
+    todoCounterNotDone: state.todos[id].done ? state.todoCounterNotDone + 1 : state.todoCounterNotDone - 1
   })),
   on(toggleTodoError, (state, { message }) => ({ ...state, isLoading: false, error: message }))
 );

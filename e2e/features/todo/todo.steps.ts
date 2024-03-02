@@ -15,7 +15,7 @@ let startedDocker: StartedDockerComposeEnvironment;
 let downedDocker: DownedDockerComposeEnvironment;
 
 BeforeAll({ timeout: 30000 }, async () => {
-  docker = new DockerComposeEnvironment(".", "docker-compose.yml");
+  docker = new DockerComposeEnvironment("../", "docker-compose.yml");
   startedDocker = await docker
     .withWaitStrategy("todo-api", Wait.forListeningPorts())
     .withWaitStrategy("todo-app", Wait.forListeningPorts())

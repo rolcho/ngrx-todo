@@ -18,7 +18,7 @@ import { Todo } from "./todo.component";
       data-testid="todo-item"
       style="margin: 10px 0; display: flex; align-items: center; justify-content: space-between"
     >
-      <mat-checkbox data-testid="todo-checkbox" [checked]="todo.done" (change)="onToggleTodo(todo)">
+      <mat-checkbox data-testid="todo-checkbox" [checked]="todo.done" (change)="onToggleTodo(todo.id)">
         {{ todo.name }}
       </mat-checkbox>
       <button mat-icon-button color="warn" aria-label="trash can icon" (click)="onDeleteTodo(todo.id)">
@@ -34,7 +34,7 @@ export class TodoListItemComponent {
     this.store.dispatch(removeTodoStarted({ id }));
   }
 
-  onToggleTodo(todo: Todo) {
-    this.store.dispatch(toggleTodoStarted({ ...todo, done: !todo.done }));
+  onToggleTodo(id: number) {
+    this.store.dispatch(toggleTodoStarted({ id }));
   }
 }
