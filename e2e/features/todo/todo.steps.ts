@@ -14,7 +14,7 @@ let docker: DockerComposeEnvironment;
 let startedDocker: StartedDockerComposeEnvironment;
 let downedDocker: DownedDockerComposeEnvironment;
 
-BeforeAll({ timeout: 30000 }, async () => {
+BeforeAll({ timeout: 20000 }, async () => {
   docker = new DockerComposeEnvironment("../", "docker-compose.yml");
   startedDocker = await docker
     .withWaitStrategy("todo-api", Wait.forListeningPorts())
@@ -24,20 +24,16 @@ BeforeAll({ timeout: 30000 }, async () => {
   page = await browser.newPage();
 });
 
-AfterAll({ timeout: 30000 }, async () => {
+AfterAll({ timeout: 20000 }, async () => {
   await page.close();
   await browser.close();
   downedDocker = await startedDocker.down();
 });
 
-Given(
-  "{string} that I insert into the text field",
-  { timeout: 10000 },
-  async function (todoInput) {
-    await page.goto("http://localhost:4200");
-    await page.fill("input", todoInput, { timeout: 10000 });
-  }
-);
+Given("{string} that I insert into the text field", async function (todoInput) {
+  await page.goto("http://localhost:4200");
+  await page.fill("input", todoInput, { timeout: 10000 });
+});
 
 When("I click on the add button", async function () {
   await page.click("button:has-text('add')");
