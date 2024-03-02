@@ -27,9 +27,9 @@ export interface Todo {
     </mat-card-header>
     <mat-card-content>
       <app-todo-input></app-todo-input>
-      <ng-container *ngFor="let todo of todos$ | async | keyvalue">
+      @for (todo of todos$ | async | keyvalue; track $index) {
         <app-todo-list-item [todo]="todo.value"></app-todo-list-item>
-      </ng-container>
+      }
     </mat-card-content>
   </mat-card>`
 })

@@ -6,12 +6,7 @@ import { provideStore } from "@ngrx/store";
 import { provideStoreDevtools } from "@ngrx/store-devtools";
 import { todoStore } from "./todo/store/todo.reducer";
 import { provideEffects } from "@ngrx/effects";
-import {
-  handleAddTodoSideEffects$,
-  handleDeleteTodoSideEffects$,
-  handleGetTodosSideEffects$,
-  handleToggleTodoSideEffects$
-} from "./todo/store/todo.effects";
+import { todoEffects } from "./todo/store/todo.effects";
 import { provideHttpClient } from "@angular/common/http";
 import { provideAnimationsAsync } from "@angular/platform-browser/animations/async";
 
@@ -30,12 +25,7 @@ export const appConfig: ApplicationConfig = {
       }
     ),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
-    provideEffects({
-      handleAddTodoSideEffects$,
-      handleGetTodosSideEffects$,
-      handleDeleteTodoSideEffects$,
-      handleToggleTodoSideEffects$
-    }),
+    provideEffects(todoEffects),
     provideHttpClient(),
     provideAnimationsAsync()
   ]
