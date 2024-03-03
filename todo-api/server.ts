@@ -21,7 +21,7 @@ const port = 3000;
 app.use(express.json());
 app.use(cors());
 
-app.get("/todos", (req: Request, res: Response) => {
+app.get("/todos", (_: Request, res: Response) => {
   res.send(todos);
 });
 
@@ -36,7 +36,6 @@ app.get("/todos/:id", (req: Request, res: Response) => {
 });
 
 app.post("/todos", (req: Request, res: Response) => {
-  const id = todos.length + 1;
   const todo = new Todo(req.body.name, false);
   todos.push(todo);
   res.send(todo);

@@ -12,7 +12,6 @@ let page: Page;
 let browser: Browser;
 let docker: DockerComposeEnvironment;
 let startedDocker: StartedDockerComposeEnvironment;
-let downedDocker: DownedDockerComposeEnvironment;
 
 BeforeAll({ timeout: 20000 }, async () => {
   docker = new DockerComposeEnvironment("../", "docker-compose.yml");
@@ -27,7 +26,7 @@ BeforeAll({ timeout: 20000 }, async () => {
 AfterAll({ timeout: 20000 }, async () => {
   await page.close();
   await browser.close();
-  downedDocker = await startedDocker.down();
+  await startedDocker.down();
 });
 
 Given("{string} that I insert into the text field", async function (todoInput) {
@@ -40,7 +39,7 @@ When("I click on the add button", async function () {
 });
 
 Then("I should see a todo with the {string} label", async function (todoItem) {
-  const todo = await page.getByTestId("todo-checkbox").last(); // Added 'await' keyword
+  const todo = page.getByTestId("todo-checkbox").last();
   await expect(todo).toBeVisible();
   await expect(todo).toHaveText(todoItem);
 });
