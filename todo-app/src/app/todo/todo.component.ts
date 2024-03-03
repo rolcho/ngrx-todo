@@ -8,6 +8,7 @@ import { getTodos } from "../todo/store/todo.selector";
 import { TodoListItemComponent } from "./todo-list-item.component";
 import { TodoCountComponent } from "./todo-count.component";
 import { TodoInputComponent } from "./todo-input.component";
+import { environment } from "../../environments/environment";
 
 export interface Todo {
   id: number;
@@ -27,6 +28,7 @@ export interface Todo {
     </mat-card-header>
     <mat-card-content>
       <app-todo-input></app-todo-input>
+      <h1>{{url}}</h1>
       @for (todo of todos$ | async; track todo.id) {
         <app-todo-list-item [todo]="todo"></app-todo-list-item>
       }
@@ -34,6 +36,7 @@ export interface Todo {
   </mat-card>`
 })
 export class TodoComponent {
+  url = environment.url;
   private store = inject(Store<AppStore>);
   todos$ = this.store.select(getTodos);
 }

@@ -6,6 +6,12 @@ services:
     ports:
       - "3000:3000"
   todo-app:
-    build: ../todo-app
+    build: 
+      context: ../todo-app
+      dockerfile: ../todo-app/Dockerfile
+      args:
+        - BACKEND_URL=http://localhost:3009
+    environment:
+      - BACKEND_URL="yolo2000"
     ports:
       - "4200:80"

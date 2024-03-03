@@ -1,5 +1,6 @@
 import { Injectable, inject } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
+import { environment } from "../../environments/environment";
 
 import {
   AddTodoRequest,
@@ -12,7 +13,7 @@ import { Todo } from "./todo.component";
 
 @Injectable({ providedIn: "root" })
 export class TodoService {
-  private baseUrl = "http://localhost:3000/todos";
+  private baseUrl = `${environment.url}/todos`;
   private http = inject(HttpClient);
 
   getTodos() {

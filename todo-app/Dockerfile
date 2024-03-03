@@ -13,7 +13,11 @@ RUN npm install
 # Copy the rest of the app source code to the working directory
 COPY . .
 
-RUN npm run build
+ARG BACKEND_URL="http://localhost:3102"
+ENV BACKEND_URL=${BACKEND_URL}
+
+RUN ["node", "/app/update.environment.mjs" ]
+RUN BACKEND_URL=${BACKEND_URL} npm run build --configuration=automatedtest --verbose
 
 FROM nginx:1.21-alpine
 
