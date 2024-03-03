@@ -4,7 +4,6 @@ import { Browser, Page } from "playwright";
 import {
   DockerComposeEnvironment,
   StartedDockerComposeEnvironment,
-  DownedDockerComposeEnvironment,
   Wait,
 } from "testcontainers";
 

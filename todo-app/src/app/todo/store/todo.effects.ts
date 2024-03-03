@@ -1,4 +1,4 @@
-import { effect, inject } from "@angular/core";
+import { inject } from "@angular/core";
 import { HttpErrorResponse } from "@angular/common/http";
 import { catchError, exhaustMap, map, of } from "rxjs";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
