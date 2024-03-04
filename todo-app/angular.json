@@ -65,10 +65,22 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:jest",
+          "builder": "@angular-builders/jest:run",
           "options": {
+            "main": ["src/test.ts"],
+            "polyfills": ["src/polyfills.ts"],
             "tsConfig": "tsconfig.spec.json",
-            "polyfills": ["zone.js", "zone.js/testing"]
+            "inlineStyleLanguage": ["scss"],
+            "assets": ["src/assets", "node_modules/ionicons/dist/ionicons/svg"],
+            "styles": ["src/theme/variables.scss", "src/global.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "ci": {
+              "progress": false,
+              "watch": false
+            },
+            "scripts": []
           }
         }
       }
