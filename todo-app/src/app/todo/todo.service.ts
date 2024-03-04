@@ -28,6 +28,6 @@ export class TodoService {
   }
 
   toggleDone(todo: ToggleTodoRequest) {
-    return this.http.patch<ToggleTodoResponse>(`${this.baseUrl}/${todo.id}/toggle`, {});
+    return this.http.patch<ToggleTodoResponse>(`${this.baseUrl}/${todo.id}/toggle`, null);
   }
 }
