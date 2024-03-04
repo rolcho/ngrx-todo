@@ -16,7 +16,9 @@ import {
   removeTodoSuccess,
   toggleTodoStarted,
   ToggleTodoRequest,
-  toggleTodoSuccess
+  toggleTodoSuccess,
+  removeTodoError,
+  toggleTodoError
 } from "./todo.actions";
 import { Todos } from "./todo.reducer";
 
@@ -42,7 +44,6 @@ const handleGetTodosSideEffects$ = createEffect(
   },
   { functional: true }
 );
-
 const handleAddTodoSideEffects$ = createEffect(
   (actions$ = inject(Actions), todoService = inject(TodoService)) => {
     return actions$.pipe(
@@ -68,7 +69,7 @@ const handleDeleteTodoSideEffects$ = createEffect(
         todoService.removeTodo(id).pipe(
           map(() => removeTodoSuccess(id)),
           catchError(({ message }: HttpErrorResponse) => {
-            return of(addTodoError({ message }));
+            return of(removeTodoError({ message }));
           })
         )
       )
@@ -85,7 +86,7 @@ const handleToggleTodoSideEffects$ = createEffect(
         todoService.toggleDone(todo).pipe(
           map((todo) => toggleTodoSuccess(todo)),
           catchError(({ message }: HttpErrorResponse) => {
-            return of(addTodoError({ message }));
+            return of(toggleTodoError({ message }));
           })
         )
       )
