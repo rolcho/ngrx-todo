@@ -16,7 +16,7 @@ class Todo {
 const todos: Todo[] = [];
 
 const app = express();
-const port = 3000;
+const port = process.env.port || 3000;
 
 app.use(express.json());
 app.use(cors());
@@ -53,17 +53,7 @@ app.patch("/todos/:id/toggle", (req: Request, res: Response) => {
   }
 });
 
-app.delete("/todos/:id", (req: Request, res: Response) => {
-  const id = parseInt(req.params.id);
-  const index = todos.findIndex((todo) => todo.id === id);
-  if (index !== -1) {
-    todos.splice(index, 1);
-    res.send({ message: "Todo deleted" });
-  } else {
-    res.sendStatus(404).send({ message: "Todo not found" });
-  }
-});
-
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+const parsedPort = parseInt(port as string);
+app.listen(parsedPort, "0.0.0.0", () => {
+  console.log(`Server is running on port ${parsedPort}`);
 });

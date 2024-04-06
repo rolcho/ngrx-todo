@@ -7,7 +7,8 @@
   "features": {
     "ghcr.io/devcontainers-contrib/features/angular-cli:2": {},
     "ghcr.io/devcontainers/features/github-cli:1": {},
-    "ghcr.io/devcontainers-contrib/features/tsx:1": {}
+    "ghcr.io/devcontainers-contrib/features/tsx:1": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
 
   // Features to add to the dev container. More info: https://containers.dev/features.
@@ -17,7 +18,7 @@
   // "forwardPorts": [],
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "cd backend && npm install && cd ../todo-app && npm install",
+  "postCreateCommand": "cd todo-api && npm install && cd ../todo-app && npm install",
 
   // Configure tool-specific properties.
   "customizations": {
