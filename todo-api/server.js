@@ -51,4 +51,5 @@ app.patch("/todos/:id/toggle", (req, res) => {
 const parsedPort = parseInt(port);
 app.listen(parsedPort, "0.0.0.0", () => {
     console.log(`Server is running on port ${parsedPort}`);
+    console.log(`${process.env.FRONTEND_URL}`);
 });
