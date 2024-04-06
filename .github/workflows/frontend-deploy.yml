@@ -1,4 +1,4 @@
-name: Deploy Backend to Railway
+name: Deploy Frontend to Railway
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 defaults:
   run:
-    working-directory: todo-app
+    working-directory: todo-api
 
 jobs:
   deploy:
@@ -30,6 +30,6 @@ jobs:
         run: npm i -g @railway/cli
 
       - name: Deploy
-        run: railway up --service rolcho-todo-app
+        run: railway up --service rolcho-todo-api
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
