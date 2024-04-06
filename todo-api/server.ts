@@ -59,6 +59,7 @@ app.delete("/todos/:id", (req: Request, res: Response) => {
   if (todo) {
     todos = todos.filter((todo) => todo.id !== id);
     res.statusCode = 204;
+    res.send({ id });
   } else {
     res.sendStatus(404).send({ message: "Todo not found" });
   }
