@@ -18,6 +18,7 @@ RUN npm run build
 FROM nginx:1.21-alpine
 
 COPY --from=build /app/dist/todo-app/browser /usr/share/nginx/html
+ENV BACKEND_URL=$BACKEND_URL
 
 EXPOSE 80
 

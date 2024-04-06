@@ -12,7 +12,7 @@ import { Todo } from "./todo.component";
 
 @Injectable({ providedIn: "root" })
 export class TodoService {
-  private baseUrl = "http://localhost:3000/todos";
+  private baseUrl = `${process.env["BACKEND_URL"]}/todos` || "http://localhost:3000/todos";
   private http = inject(HttpClient);
 
   getTodos() {
