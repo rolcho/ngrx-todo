@@ -13,7 +13,7 @@ class Todo {
   }
 }
 
-const todos: Todo[] = [];
+let todos: Todo[] = [];
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -48,6 +48,17 @@ app.patch("/todos/:id/toggle", (req: Request, res: Response) => {
   if (todo) {
     todo.done = !todo.done;
     res.send({ id: todo.id });
+  } else {
+    res.sendStatus(404).send({ message: "Todo not found" });
+  }
+});
+
+app.delete("/todos/:id", (req: Request, res: Response) => {
+  const id = parseInt(req.params.id);
+  let todo = todos.find((todo) => todo.id === id);
+  if (todo) {
+    todos = todos.filter((todo) => todo.id !== id);
+    res.statusCode = 204;
   } else {
     res.sendStatus(404).send({ message: "Todo not found" });
   }

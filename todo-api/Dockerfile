@@ -13,8 +13,11 @@ RUN npm install
 # Copy the rest of the application code to the working directory
 COPY . .
 
+# Build the TypeScript files
+RUN npm run build
+
 # Expose the port on which your Express application will run
 EXPOSE 3000
 
 # Start the Express application
-CMD ["node", "server.js"]
+CMD ["npm", "start"]
