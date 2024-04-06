@@ -9,3 +9,5 @@ services:
     build: ./todo-app
     ports:
       - "80:80"
+    environment:
+      - BACKEND_URL=http://localhost:3000
