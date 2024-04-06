@@ -1,22 +1,21 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
 class Todo {
-  static currentId = 0;
   id: number;
   name: string;
   done: boolean;
 
-  constructor(name: string, done: boolean) {
-    this.id = Todo.currentId++;
+  constructor(name: string, done: boolean, id: number) {
     this.name = name;
     this.done = done;
+    this.id = id;
   }
 }
 
 let todos: Todo[] = [];
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT ?? 3000;
 
 app.use(express.json());
 app.use(cors({ origin: process.env.FRONTEND_URL }));
@@ -36,8 +35,8 @@ app.get("/todos/:id", (req: Request, res: Response) => {
 });
 
 app.post("/todos", (req: Request, res: Response) => {
-  const id = todos.length + 1;
-  const todo = new Todo(req.body.name, false);
+  const id = Math.random() * 100000000;
+  const todo = new Todo(req.body.name, false, id);
   todos.push(todo);
   res.send(todo);
 });
