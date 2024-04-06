@@ -14,15 +14,14 @@ import {
   toggleTodoStarted,
   toggleTodoSuccess
 } from "./todo.actions";
-export type Todos = { [id: number]: Todo };
 export type TodoState = {
-  todos: Todos;
+  todos: Todo[];
   isLoading: boolean;
   error: string;
 };
 
 const initialState: TodoState = {
-  todos: {},
+  todos: [],
   error: "",
   isLoading: false
 };
@@ -44,32 +43,31 @@ const todoStore = createReducer(
   on(addTodoSuccess, (state, { id, name, done }) => ({
     ...state,
     isLoading: false,
-    todos: { ...state.todos, [id]: { id, name, done } }
+    todos: [...state.todos, { id, name, done }]
   })),
   on(addTodoError, (state, { message }) => ({ ...state, isLoading: false, error: message })),
 
   // removeTodo
   on(removeTodoStarted, (state) => ({ ...state, isLoading: true })),
-  on(removeTodoSuccess, (state, { id }) => {
-    const { [id]: deletedTodo, ...updatedTodos } = state.todos;
-    return {
-      ...state,
-      isLoading: false,
-      todos: updatedTodos
-    };
-  }),
+  on(removeTodoSuccess, (state, { id }) => ({
+    ...state,
+    isLoading: false,
+    todos: state.todos.filter((todo) => todo.id !== id)
+  })),
   on(removeTodoError, (state, { message }) => ({ ...state, isLoading: false, error: message })),
 
   // toggleTodo
   on(toggleTodoStarted, (state) => ({ ...state, isLoading: true })),
-  on(toggleTodoSuccess, (state, { id }) => {
-    const { [id]: toggledTodo } = state.todos;
-    return {
-      ...state,
-      isLoading: false,
-      todos: { ...state.todos, [id]: { ...state.todos[id], done: !toggledTodo.done } }
-    };
-  }),
+  on(toggleTodoSuccess, (state, { id }) => ({
+    ...state,
+    isLoading: false,
+    todos: state.todos.map((todo) => {
+      if (todo.id === id) {
+        return { ...todo, done: !todo.done };
+      }
+      return todo;
+    })
+  })),
   on(toggleTodoError, (state, { message }) => ({ ...state, isLoading: false, error: message }))
 );
 
