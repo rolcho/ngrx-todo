@@ -12,7 +12,7 @@ import { Todo } from "./todo.component";
 
 @Injectable({ providedIn: "root" })
 export class TodoService {
-  private baseUrl = "http://rolcho-todo-api.railway.internal:3000";
+  private baseUrl = "https://rolcho-todo-api.railway.internal/todos";
 
   private http = inject(HttpClient);
 
