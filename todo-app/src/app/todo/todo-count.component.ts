@@ -4,7 +4,7 @@ import { Store } from "@ngrx/store";
 import { MatCardModule } from "@angular/material/card";
 
 import { AppStore } from "../app.state";
-import { getDoneCount, getTodoCount } from "../todo/store/todo.selector";
+import { getTodoDone, getTodoNotDone } from "../todo/store/todo.selector";
 
 @Component({
   selector: "app-todo-count",
@@ -17,6 +17,6 @@ import { getDoneCount, getTodoCount } from "../todo/store/todo.selector";
 })
 export class TodoCountComponent {
   private store = inject(Store<AppStore>);
-  todoCount$ = this.store.select(getTodoCount);
-  doneCount$ = this.store.select(getDoneCount);
+  todoCount$ = this.store.select(getTodoNotDone);
+  doneCount$ = this.store.select(getTodoDone);
 }

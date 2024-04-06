@@ -13,11 +13,7 @@ class Todo {
   }
 }
 
-const todos: Todo[] = [
-  new Todo("Eat", true),
-  new Todo("Drink", false),
-  new Todo("Sleep", false),
-];
+const todos: Todo[] = [];
 
 const app = express();
 const port = 3000;
@@ -35,7 +31,7 @@ app.get("/todos/:id", (req: Request, res: Response) => {
   if (todo) {
     res.send(todo);
   } else {
-    res.status(404).send({ message: "Todo not found" });
+    res.sendStatus(404).send({ message: "Todo not found" });
   }
 });
 
@@ -46,14 +42,14 @@ app.post("/todos", (req: Request, res: Response) => {
   res.send(todo);
 });
 
-app.put("/todos/:id", (req: Request, res: Response) => {
+app.patch("/todos/:id/toggle", (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
   let todo = todos.find((todo) => todo.id === id);
   if (todo) {
-    todo = Object.assign(todo, req.body);
-    res.send(todo);
+    todo.done = !todo.done;
+    res.send({ id: todo.id });
   } else {
-    res.status(404).send({ message: "Todo not found" });
+    res.sendStatus(404).send({ message: "Todo not found" });
   }
 });
 
@@ -64,7 +60,7 @@ app.delete("/todos/:id", (req: Request, res: Response) => {
     todos.splice(index, 1);
     res.send({ message: "Todo deleted" });
   } else {
-    res.status(404).send({ message: "Todo not found" });
+    res.sendStatus(404).send({ message: "Todo not found" });
   }
 });
 

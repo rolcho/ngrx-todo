@@ -1,4 +1,4 @@
-import { inject } from "@angular/core";
+import { effect, inject } from "@angular/core";
 import { HttpErrorResponse } from "@angular/common/http";
 import { catchError, exhaustMap, map, of } from "rxjs";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
@@ -18,6 +18,7 @@ import {
   ToggleTodoRequest,
   toggleTodoSuccess
 } from "./todo.actions";
+import { Todos } from "./todo.reducer";
 
 const handleGetTodosSideEffects$ = createEffect(
   (actions$ = inject(Actions), todoService = inject(TodoService)) => {
@@ -25,7 +26,13 @@ const handleGetTodosSideEffects$ = createEffect(
       ofType(loadTodosStarted),
       exhaustMap(() =>
         todoService.getTodos().pipe(
-          map((todos) => loadTodosSuccess({ todos })),
+          map((todos) => {
+            const todosMap: Todos = {};
+            todos.forEach((todo) => {
+              todosMap[todo.id] = todo;
+            });
+            return loadTodosSuccess({ todos: todosMap });
+          }),
           catchError(({ message }: HttpErrorResponse) => {
             return of(loadTodosError({ message }));
           })
@@ -87,7 +94,7 @@ const handleToggleTodoSideEffects$ = createEffect(
   { functional: true }
 );
 
-export {
+export const todoEffects = {
   handleGetTodosSideEffects$,
   handleAddTodoSideEffects$,
   handleDeleteTodoSideEffects$,
