@@ -40,11 +40,15 @@ const todoStore = createReducer(
 
   // addTodo
   on(addTodoStarted, (state) => ({ ...state, isLoading: true })),
-  on(addTodoSuccess, (state, { id, name, done }) => ({
-    ...state,
-    isLoading: false,
-    todos: [...state.todos, { id, name, done }]
-  })),
+  on(addTodoSuccess, (state, { id, name, done }) => {
+    const updatedTodos = [...state.todos];
+    updatedTodos.push({ id, name, done });
+    return {
+      ...state,
+      isLoading: false,
+      todos: updatedTodos
+    };
+  }),
   on(addTodoError, (state, { message }) => ({ ...state, isLoading: false, error: message })),
 
   // removeTodo
@@ -61,11 +65,11 @@ const todoStore = createReducer(
   on(toggleTodoSuccess, (state, { id }) => ({
     ...state,
     isLoading: false,
-    todos: state.todos.map((todo) => {
-      if (todo.id === id) {
-        return { ...todo, done: !todo.done };
+    todos: state.todos.map((updatedTodo) => {
+      if (updatedTodo.id === id) {
+        return { ...updatedTodo, done: !updatedTodo.done };
       }
-      return todo;
+      return updatedTodo;
     })
   })),
   on(toggleTodoError, (state, { message }) => ({ ...state, isLoading: false, error: message }))
