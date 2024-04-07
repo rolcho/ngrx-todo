@@ -35,7 +35,7 @@ app.get("/todos/:id", (req: Request, res: Response) => {
 });
 
 app.post("/todos", (req: Request, res: Response) => {
-  const id = Math.round(Math.random() * 100000000);
+  const id = Math.round(Math.random() * 4_294_967_296);
   const todo = new Todo(req.body.name, false, id);
   todos.push(todo);
   res.send(todo);

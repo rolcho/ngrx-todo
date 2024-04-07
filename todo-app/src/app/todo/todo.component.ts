@@ -27,8 +27,8 @@ export interface Todo {
     </mat-card-header>
     <mat-card-content>
       <app-todo-input></app-todo-input>
-      @for (todo of todos$ | async | keyvalue; track $index) {
-        <app-todo-list-item [todo]="todo.value"></app-todo-list-item>
+      @for (todo of todos$ | async; track $index) {
+        <app-todo-list-item [todo]="todo"></app-todo-list-item>
       }
     </mat-card-content>
   </mat-card>`

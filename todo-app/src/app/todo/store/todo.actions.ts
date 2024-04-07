@@ -1,7 +1,7 @@
 import { createAction, props } from "@ngrx/store";
-import { Todos } from "./todo.reducer";
+import { Todo } from "../todo.component";
 
-export type LoadTodosResponse = { todos: Todos };
+export type LoadTodosResponse = { todos: Todo[] };
 export type LoadTodosError = { message: string };
 
 const loadTodosStarted = createAction("[Todo Load] Started");
