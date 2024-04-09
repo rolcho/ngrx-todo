@@ -42,6 +42,7 @@ app.post("/todos", (req: Request, res: Response) => {
 });
 
 app.patch("/todos/:id/toggle", (req: Request, res: Response) => {
+  //Update todo
   const id = parseInt(req.params.id);
   let todo = todos.find((todo) => todo.id === id);
   if (todo) {
